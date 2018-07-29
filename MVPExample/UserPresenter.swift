@@ -11,7 +11,7 @@ import Foundation
 protocol UserViewProtocol :class{
     func startLoading()
     func finishLoading()
-    func refreshData()
+    func reloadData()
     func setEmptyUsers()
 }
 
@@ -47,7 +47,7 @@ class UserPresenter {
                 self?.userView?.setEmptyUsers()
             }else{
                 self?.usersToDisplay = users
-                self?.userView?.refreshData()
+                self?.userView?.reloadData()
             }
         }
     }

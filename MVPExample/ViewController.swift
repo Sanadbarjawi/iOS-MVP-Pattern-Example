@@ -24,11 +24,10 @@ class ViewController: UIViewController {
     
 }
 extension ViewController:UITableViewDataSource{
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userPresenter.usersCount()
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
         guard let name = userPresenter.usersData(row: indexPath.row).Name,let age = userPresenter.usersData(row: indexPath.row).age else {
@@ -49,7 +48,7 @@ extension ViewController:UITableViewDelegate{
 }
 
 extension ViewController:UserViewProtocol{
-    func refreshData() {
+    func reloadData() {
         tableView.reloadData()
     }
     
@@ -63,5 +62,5 @@ extension ViewController:UserViewProtocol{
     func finishLoading() {
         activityIndicator.stopAnimating()
     }
-  
+    
 }
