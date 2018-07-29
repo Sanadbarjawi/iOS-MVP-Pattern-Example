@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var userPresenter:UserPresenter!
-    
+    let cellNibNameAndIdentifier = "CustomCell"
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
+        tableView.register(UINib(nibName: cellNibNameAndIdentifier, bundle: nil), forCellReuseIdentifier: cellNibNameAndIdentifier)
         userPresenter = UserPresenter(usrService: UserService())
         userPresenter.attachView(self)//set delegate to self
         userPresenter.getUsers()
@@ -29,7 +29,7 @@ extension ViewController:UITableViewDataSource{
         return userPresenter.usersCount()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellNibNameAndIdentifier) as! CustomCell
         guard let name = userPresenter.usersData(row: indexPath.row).Name,let age = userPresenter.usersData(row: indexPath.row).age else {
             return cell
         }
