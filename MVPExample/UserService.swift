@@ -19,7 +19,7 @@ class UserService {
         user1.Name = "ahmad"
         user2.Name = "sameer"
         user3.Name = "Loai"
-        user4.Name = nil
+        user4.Name = "sami"
 
         user1.age = "32"
         user2.age = "23"

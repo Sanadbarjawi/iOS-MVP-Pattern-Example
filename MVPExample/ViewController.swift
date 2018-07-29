@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         userPresenter = UserPresenter(usrService: UserService())
         userPresenter.attachView(self)//set delegate to self
         userPresenter.getUsers()
@@ -23,15 +24,17 @@ class ViewController: UIViewController {
     
 }
 extension ViewController:UITableViewDataSource{
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userPresenter.usersCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "UserCell")
- 
-        cell.textLabel?.text = userPresenter.usersData(row: indexPath.row).Name
-        cell.detailTextLabel?.text = userPresenter.usersData(row: indexPath.row).age
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
+        guard let name = userPresenter.usersData(row: indexPath.row).Name,let age = userPresenter.usersData(row: indexPath.row).age else {
+            return cell
+        }
+        cell.populateCell(name: name, age: age)
         return cell
     }
 }
